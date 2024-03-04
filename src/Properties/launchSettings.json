@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GoodbyeUsp": {
+      "commandName": "Project",
+      "commandLineArgs": "Server=gies3;Database=UkrBilling;Trusted_Connection=True;" //10.67.5.10
+    }
+  }
+}

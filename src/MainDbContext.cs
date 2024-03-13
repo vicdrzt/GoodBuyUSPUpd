@@ -57,14 +57,14 @@ namespace GoodbyeUsp
                 fs.HasKey(e => new { e.ClientId, e.DateBank});
             });
 
-            modelBuilder.Entity<Client>().OwnsMany(cl => cl.Payments, fs =>
+			modelBuilder.Entity<Client>().OwnsMany(cl => cl.Payments, fs =>
             {
                 fs.ToTable("Payments");
                 fs.WithOwner().HasForeignKey(f => f.ClientId);
-                fs.HasKey(e => new { e.ClientId, e.DateBank });
+                //fs.HasKey(e => new { e.ClientId, e.DateBank });
             });
 
-            modelBuilder.Entity<Client>().OwnsMany(cl => cl.Subsidies, fs =>
+			modelBuilder.Entity<Client>().OwnsMany(cl => cl.Subsidies, fs =>
             {
                 fs.ToTable("Subsidies");
                 fs.WithOwner().HasForeignKey(f => f.ClientId);

@@ -28,7 +28,6 @@ using System.Globalization;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using EFCore.BulkExtensions;
-using System;
 
 if (args.Length == 0)
 {
@@ -90,8 +89,8 @@ if (!args.Any(a => new[] { "-export", "-e" }.Contains(a)))
     {
         ctx.Database.EnsureDeleted();
         ctx.Database.Migrate();
-        ctx.Database.ExecuteSqlRaw(@"ALTER DATABASE [UkrBilling3] MODIFY FILE ( NAME = N'UkrBilling3', SIZE = 2333312KB );");
-        ctx.Database.ExecuteSqlRaw(@"ALTER DATABASE [UkrBilling3] MODIFY FILE ( NAME = N'UkrBilling3_log', SIZE = 2457312KB )");
+        ctx.Database.ExecuteSqlRaw(@"ALTER DATABASE [UkrBilling] MODIFY FILE ( NAME = N'UkrBilling', SIZE = 2333312KB );");
+        ctx.Database.ExecuteSqlRaw(@"ALTER DATABASE [UkrBilling] MODIFY FILE ( NAME = N'UkrBilling_log', SIZE = 2457312KB )");
         ctx.Database.SetCommandTimeout(0);
     }
     int IterNumber = 0;
@@ -314,9 +313,10 @@ if (!args.Any(a => new[] { "-export", "-e" }.Contains(a)))
         ctx.AddRange(c);
         #endregion
 
-        ctx.AddRange(cn.Query<Payment>(Servers.SelectPaymentsQuery, commandTimeout: 0));
+        var payments = cn.Query<Payment>(Servers.SelectPaymentsQuery, commandTimeout: 0).ToList();
+        await ctx.BulkInsertAsync(payments);
 
-        ctx.AddRange(cn.Query<Subsidy>(Servers.SelectSubsidyQuery, commandTimeout: 0));
+		ctx.AddRange(cn.Query<Subsidy>(Servers.SelectSubsidyQuery, commandTimeout: 0));
         ctx.AddRange(cn.Query<Pay375>(Servers.SelectPay375Query, commandTimeout: 0));
         ctx.AddRange(cn.Query<Pay64>(Servers.SelectPay64Query, commandTimeout: 0));
         ctx.AddRange(cn.Query<MonetizedDiscount>(Servers.SelectMonetizedDiscounts, commandTimeout: 0));

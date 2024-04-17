@@ -2,7 +2,9 @@
   "profiles": {
     "GoodbyeUsp": {
       "commandName": "Project",
-      "commandLineArgs": "Server=gies3;Database=UkrBilling;Trusted_Connection=True -ren=bn -export=no"
+      "commandLineArgs": "Server=gies1;Database=UkrBilling;Trusted_Connection=True -ren=bn -export=yes",
+      //"commandLineArgs": "Server=gies1;Database=UkrBilling;Trusted_Connection=True "
+      //"commandLineArgs": "Server=10.67.5.10;Database=UkrBilling;Trusted_Connection=True; ./out/ -export=yes"
     }
   }
 }

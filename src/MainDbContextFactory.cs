@@ -13,7 +13,7 @@ namespace GoodbyeUsp
         {
             var optionsBuilder = new DbContextOptionsBuilder<MainDbContext>();
             //optionsBuilder.UseSqlServer("Server=10.67.5.10;Database=UkrBilling;Trusted_Connection=True;");
-            optionsBuilder.UseSqlServer("Server=gies3;Database=UkrBilling;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=gies1;Database=UkrBilling;Trusted_Connection=True;");
 
             return new MainDbContext(optionsBuilder.Options);
         }
